@@ -6,9 +6,39 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 
 public class Main
 {
-    public static void main(String args[]) {
-        Producer producer = new Producer("anuncio_casas");
-        Consumer consumer = new Consumer("anuncio_casas");
+    public static void main(String[] args) {
+        Producer anuncioCasas = createProducer("anuncio_casas");
+        Producer anuncioCarros = createProducer("anuncio_carros");
+        Producer anuncioBarcos = createProducer("anuncio_barcos");
+        Consumer consumerCasas = createConsumer("anuncio_casas");
+        Consumer consumerCarros = createConsumer("anuncio_carros");
+        Consumer consumerBarcos = createConsumer("anuncio_barcos");
+
+        anuncioCasas.sendRecord(Record.HOUSE_AD);
+        anuncioCasas.sendRecord(Record.APPARTMENT_AD);
+        anuncioCarros.sendRecord(Record.TIGUAN_AD);
+        anuncioCarros.sendRecord(Record.VOYAGE_AD);
+        anuncioBarcos.sendRecord(Record.YATCH_AD);
+        anuncioBarcos.sendRecord(Record.BOAT_AD);
+
+    }
+
+    public static Consumer createConsumer(String topicName) {
+        Consumer consumer = new Consumer(topicName);
+        consumer.startListening(new ConsumerMessageHandlerCallback()
+        {
+            @Override
+            public void processRecord(String topicName, ConsumerRecord<String, String> record)
+            {
+                System.out.println("The consumer from topic " + topicName + " received a new record: ");
+                System.out.println(record.value());
+            }
+        });
+        return consumer;
+    }
+
+    public static Producer createProducer(String topicName) {
+        Producer producer = new Producer(topicName);
         Callback callback = new Callback() {
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                 if (e == null) {
@@ -23,15 +53,8 @@ public class Main
                 }
             }
         };
-        consumer.startListening(new ConsumerMessageHandlerCallback()
-        {
-            @Override
-            public void processRecord(String topicName, ConsumerRecord<?, ?> record)
-            {
-                System.out.println("The consumer received a new " + topicName + " record from producer.");
-                System.out.println(record);
-            }
-        });
-        producer.sendRecord("casa 50 metros quadrados", callback);
+        producer.setCallback(callback);
+        return producer;
+        //producer.sendRecord("casa 50 metros quadrados", callback);
     }
 }
