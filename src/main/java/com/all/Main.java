@@ -21,8 +21,8 @@ public class Main {
         setupConsumer(consumerAdministrativo,"consumer_administrativo");
 
         producerTanque.sendRecord("500L", callback);
-        producerBomba.sendRecord("30L, 150", callback);
-        producerBomba.sendRecord("20L, 120", callback);
+        producerBomba.sendRecord("30L, $150", callback);
+        producerBomba.sendRecord("20L, $120", callback);
         producerTanque.sendRecord("1500L", callback);
     }
 

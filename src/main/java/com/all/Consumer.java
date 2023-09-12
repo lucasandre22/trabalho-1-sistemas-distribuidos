@@ -12,7 +12,7 @@ public class Consumer
 {
     private KafkaConsumer<String, String> kafkaConsumer;
     private final String topicName;
-    private final long TIME_OUT_MS = 10;
+    private final long TIME_OUT_MS = 500;
 
     public Consumer(String topicName, String consumerGroup) {
         PropertiesHelper.initializeProperties("localhost:9092", consumerGroup);
