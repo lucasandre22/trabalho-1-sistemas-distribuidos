@@ -6,8 +6,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 public class Producer
 {
-    private KafkaProducer<String, String> kafkaProducer;
-    private String topicName;
+    private final KafkaProducer<String, String> kafkaProducer;
+    private final String topicName;
 
     public Producer(String topicName) {
         this.kafkaProducer = new KafkaProducer<>(PropertiesHelper.getProperties());
@@ -19,7 +19,6 @@ public class Producer
         System.out.println("Sending record..");
         kafkaProducer.send(producerRecord, callback);
         kafkaProducer.flush();
-        kafkaProducer.close();
     }
 
 

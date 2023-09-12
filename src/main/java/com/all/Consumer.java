@@ -11,24 +11,23 @@ import java.util.Properties;
 public class Consumer
 {
     private KafkaConsumer<String, String> kafkaConsumer;
-    private String topicName;
-    private final long TIME_OUT_MS = 1000;
+    private final String topicName;
+    private final long TIME_OUT_MS = 10;
 
-    public Consumer(String topicName) {
-        this.kafkaConsumer = new KafkaConsumer<String, String>(PropertiesHelper.getProperties());
+    public Consumer(String topicName, String consumerGroup) {
+        PropertiesHelper.initializeProperties("localhost:9092", consumerGroup);
+        this.kafkaConsumer = new KafkaConsumer<>(PropertiesHelper.getProperties());
         this.topicName = topicName;
     }
 
-    public void startListening(ConsumerMessageHandlerCallback callback) {
-        Properties props = PropertiesHelper.getProperties();
-        kafkaConsumer = new KafkaConsumer<>(props);
+    public void startListening(String consumerName, ConsumerMessageHandlerCallback callback) {
         kafkaConsumer.subscribe(List.of(topicName));
 
         Thread thread = new Thread()
         {
             @Override public void run()
             {
-                System.out.println("The consumer started listening for topics at " + topicName);
+                System.out.println("The consumer " + consumerName + " started listening for topics at " + topicName);
                 while(true) {
                     ConsumerRecords<String, String> records =
                             kafkaConsumer.poll(Duration.ofMillis(TIME_OUT_MS));
