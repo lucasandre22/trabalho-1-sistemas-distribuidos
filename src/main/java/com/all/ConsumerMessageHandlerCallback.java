@@ -4,5 +4,5 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public interface ConsumerMessageHandlerCallback
 {
-    void processRecord(String topicName, ConsumerRecord<?, ?> record);
+    public void processRecord(String topicName, ConsumerRecord<String, String> record);
 }
