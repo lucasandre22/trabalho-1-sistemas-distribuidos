@@ -1,11 +1,13 @@
 package com.all;
 
+import com.all.consumer.Consumer;
+import com.all.producer.Producer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Producer producerTanque = new Producer("sensor_tanque");
         Producer producerBomba = new Producer("sensor_bomba");
 
@@ -20,10 +22,10 @@ public class Main {
         setupConsumer(consumerCaixa, "consumer_caixa");
         setupConsumer(consumerAdministrativo,"consumer_administrativo");
 
-        producerTanque.sendRecord("500L", callback);
-        producerBomba.sendRecord("30L, $150", callback);
-        producerBomba.sendRecord("20L, $120", callback);
-        producerTanque.sendRecord("1500L", callback);
+        producerTanque.sendRecord(Record.TANQUE_500L, callback);
+        producerBomba.sendRecord(Record.BOMBA_30L, callback);
+        producerBomba.sendRecord(Record.BOMBA_20L, callback);
+        producerTanque.sendRecord(Record.TANQUE_1500L, callback);
     }
 
     private static Callback createProducerCallback() {

@@ -5,12 +5,10 @@ import lombok.Getter;
 
 @AllArgsConstructor @Getter
 public enum Record {
-    HOUSE_AD("Casa em Curitiba no bairro santa candida com 100 metros quadrados"),
-    APPARTMENT_AD("Apartamento em Pinhais"),
-    TIGUAN_AD("Tiguan 2014 com 104 mil km"),
-    VOYAGE_AD("Voyage impecavel 2012 com 12 mil km"),
-    YATCH_AD("Iate preto"),
-    BOAT_AD("Barco em matinhos");
+    BOMBA_20L("20L, $100"),
+    BOMBA_30L("30L, $150"),
+    TANQUE_1500L("1500L"),
+    TANQUE_500L("500L");
 
-    private String ad;
+    private final String recordName;
 }

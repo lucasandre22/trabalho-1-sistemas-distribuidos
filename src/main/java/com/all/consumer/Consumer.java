@@ -1,5 +1,7 @@
-package com.all;
+package com.all.consumer;
 
+import com.all.ConsumerMessageHandlerCallback;
+import com.all.PropertiesHelper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -15,8 +17,8 @@ public class Consumer
     private final long TIME_OUT_MS = 500;
 
     public Consumer(String topicName, String consumerGroup) {
-        PropertiesHelper.initializeProperties("localhost:9092", consumerGroup);
-        this.kafkaConsumer = new KafkaConsumer<>(PropertiesHelper.getProperties());
+        this.kafkaConsumer = new KafkaConsumer<>(PropertiesHelper.
+                initializeAndGetProperties(consumerGroup));
         this.topicName = topicName;
     }
 
