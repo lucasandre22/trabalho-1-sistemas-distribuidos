@@ -1,11 +1,13 @@
 package com.all;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
 import java.util.Properties;
+import java.util.UUID;
 
 public class PropertiesHelper {
     private final static String BOOSTRAP_SERVER = "localhost:9092";
@@ -22,7 +24,8 @@ public class PropertiesHelper {
         properties.put("buffer.memory", 33554432);
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("group.id", groupId);
+        //properties.put("group.id", groupId);
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());
         return properties;
     }
 }

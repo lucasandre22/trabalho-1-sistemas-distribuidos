@@ -18,7 +18,7 @@ public class Producer
 
     public void sendRecord(Record record, Callback callback) {
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, record.getRecordName());
-        System.out.println("Producer sending record " + record);
+        System.out.println("Producer sending record " + record.getRecordName());
         kafkaProducer.send(producerRecord, callback);
         kafkaProducer.flush();
     }

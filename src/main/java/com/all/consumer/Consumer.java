@@ -14,7 +14,7 @@ public class Consumer
 {
     private KafkaConsumer<String, String> kafkaConsumer;
     private final String topicName;
-    private final long TIME_OUT_MS = 500;
+    private final long TIME_OUT_MS = 3000;
 
     public Consumer(String topicName, String consumerGroup) {
         this.kafkaConsumer = new KafkaConsumer<>(PropertiesHelper.
